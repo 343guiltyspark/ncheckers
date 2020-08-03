@@ -33,8 +33,13 @@ a {
 .white {
   background-color : white;   
 }
+
 .black {
   background-color : black;   
+}
+
+.available {
+  background-color : cyan;   
 }
 
 .piece {
