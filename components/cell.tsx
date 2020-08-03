@@ -1,12 +1,13 @@
 import {useState} from 'react';
+import {Unselect} from "../helpers/unselect"
 import { Board } from "./board";
 
 interface props{
-  board : Array<any>,
+  board? : Array<any>,
   dup?: Array<any>,
-  setBoard: (setBoard)=>void,
-  setUnselect: (setUnselect)=>void,
-  setBoardHandler: (setUnselect)=>void,
+  setBoard?: (setBoard)=>void,
+  setUnselect?: (setUnselect)=>void,
+ // setBoardHandler: (setBoardHandler)=>void,
   c:number,
   i:number,
   j:number
@@ -14,7 +15,8 @@ interface props{
 
 export const Cell: React.FC<props> = (props) => {
 
-    const [cell,setCell] = useState(props.c);    
+    //const [cell,setCell] = useState(props.c)
+    let cell = props.c;    
     let cName  = (cell==0) ? "cell white" : "cell black" ;
     let pName =     (Math.abs(cell)==2) ? "piece red" :
                     (Math.abs(cell)==3) ? "piece gray" :
@@ -26,13 +28,13 @@ export const Cell: React.FC<props> = (props) => {
     }
 
     const ClickHandler = () => {        
-            let dup = props.board
-            props.setBoardHandler(dup)
-            dup[props.i][props.j] = props.board[props.i][props.j]*-1; 
-            setCell(dup[props.i][props.j]);
-            props.setBoard(dup);
+            let dup = [...props.board]
+            dup=Unselect(dup);
+            dup[props.i][props.j] = props.board[props.i][props.j]*-1;
+            props.setBoard([...dup]);
+            console.log(props.board);
     }
-                 
+                  
     return(
         <div className={cName} onClick={ClickHandler}>
             <div className={pName}>

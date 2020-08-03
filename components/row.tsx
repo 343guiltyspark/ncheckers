@@ -4,19 +4,16 @@ import { markSelected } from "../helpers/markSelected";
 interface props{
   n:number,
   i:number,
-  j:number
+  j?:number
   board: Array<any>,
   dup?: Array<any>,
   tempArray: Array<number>,
   setBoard: (setBoard)=>void,
-  setBoardHandler: (setBoardHandler)=>void,
+ // setBoardHandler: (setBoardHandler)=>void,
 }
 
 export const Row: React.FC<props> = (props) => {
 
-  const setBoardHandler = () =>{
-    
-  }
 
   return(
       <div style={{margin:"-5px",padding:"0px"}}>
@@ -25,7 +22,8 @@ export const Row: React.FC<props> = (props) => {
                                             j={i} 
                                             board={props.board} 
                                             setBoard={props.setBoard}
-                                            setUnselect={setBoardHandler} />))}
+                                          //  setBoardHandler={props.setBoardHandler} 
+                                          />))}
       </div>
     )
 }
