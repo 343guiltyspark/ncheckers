@@ -53,3 +53,14 @@ a {
 .red {
     background-color: red;
 }
+
+.selected {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin:auto;
+  margin-top: 5px;
+  border-width: 3px;
+  background-color: yellow;
+  z-index: 10;
+}

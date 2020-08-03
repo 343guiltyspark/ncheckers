@@ -23,11 +23,19 @@ export const Board: React.FC<boardProps> = (boardProps) => {
     //                  Any negatvie multiple is a selected piece     
     //                  -2 = selected red piece
     //                  -3 = selected gray piece     
+    const SetBoardHandler = () => {
 
+
+    }
 
 return(
     <main className={"board"}>
-        {board.map((r,i)=><Row i={i} n={nValue} setBoard={setBoard} board={board}/>)}         
+        {board.map((r,i)=><Row 
+                            i={i} 
+                            n={nValue}
+                            setBoard={setBoard} 
+                            setBoardHandler={SetBoardHandler} 
+                            board={board}/>)}         
     </main>
     )
 }
