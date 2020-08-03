@@ -14,3 +14,42 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.board {
+  margin-bottom:10px;
+}
+
+.cell {
+  display: inline-block;
+  height: 49px;
+  width : 49px;
+  background-color : white;   
+  border:solid 1px;
+  border-spacing :0px;
+  padding:0px;
+  margin:0px
+}
+
+.white {
+  background-color : white;   
+}
+.black {
+  background-color : black;   
+}
+
+.piece {
+ 
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin:auto;
+    margin-top: 5px; 
+}
+
+.gray {  
+    background-color: gray;  
+}
+
+.red {
+    background-color: red;
+}
