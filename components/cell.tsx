@@ -15,6 +15,7 @@ interface props {
 
 export const Cell: React.FC<props> = (props) => {
   //const [cell,setCell] = useState(props.c)
+  //console.log(props.board);
   let cell = props.c;
 
   let cName =
@@ -37,15 +38,17 @@ export const Cell: React.FC<props> = (props) => {
   }
 
   const ClickHandler = () => {
+    console.log(props.board);
     let dup = [...props.board];
     dup = dup[props.i][props.j] >= 0 ? Unselect(dup) : dup;
+    console.log(dup);
     dup[props.i][props.j] =
       dup[props.i][props.j] !== 1 &&
       dup[props.i][props.j] !== -1 &&
       dup[props.i][props.j] !== 0
         ? props.board[props.i][props.j] * -1
         : dup[props.i][props.j];
-
+    console.log(dup);
     dup =
       dup[props.i][props.j] == -2 || dup[props.i][props.j] == -3
         ? AvailableMoves(dup, props.i, props.j)
