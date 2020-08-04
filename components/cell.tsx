@@ -6,11 +6,13 @@ interface props {
   board?: Array<any>;
   dup?: Array<any>;
   setBoard?: (setBoard) => void;
+  setActive: (setActive) => void;
   setUnselect?: (setUnselect) => void;
   // setBoardHandler: (setBoardHandler)=>void,
   c: number;
   i: number;
   j: number;
+  active: number;
 }
 
 export const Cell: React.FC<props> = (props) => {
@@ -38,27 +40,35 @@ export const Cell: React.FC<props> = (props) => {
   }
 
   const ClickHandler = () => {
-    console.log(props.board);
-    let dup = [...props.board];
-    dup = dup[props.i][props.j] >= 0 ? Unselect(dup) : dup;
-    console.log(dup);
-    dup[props.i][props.j] =
-      dup[props.i][props.j] !== 1 &&
-      dup[props.i][props.j] !== -1 &&
-      dup[props.i][props.j] !== 0
-        ? props.board[props.i][props.j] * -1
-        : dup[props.i][props.j];
-    console.log(dup);
-    dup =
-      dup[props.i][props.j] == -2 || dup[props.i][props.j] == -3
-        ? AvailableMoves(dup, props.i, props.j)
-        : dup;
+    if (
+      props.board[props.i][props.j] == props.active ||
+      props.board[props.i][props.j] == -1
+    ) {
+      console.log(props.board);
+      let dup = [...props.board];
+      dup = dup[props.i][props.j] >= 0 ? Unselect(dup) : dup;
+      console.log(dup);
+      dup[props.i][props.j] =
+        dup[props.i][props.j] !== 1 &&
+        dup[props.i][props.j] !== -1 &&
+        dup[props.i][props.j] !== 0
+          ? props.board[props.i][props.j] * -1
+          : dup[props.i][props.j];
+      console.log(dup);
+      dup =
+        dup[props.i][props.j] == -2 || dup[props.i][props.j] == -3
+          ? AvailableMoves(dup, props.i, props.j)
+          : dup;
 
-    console.log(dup[props.i][props.j]);
-    dup = dup[props.i][props.j] == -1 ? MovePiece(dup, props.i, props.j) : dup;
+      console.log(dup[props.i][props.j]);
+      dup =
+        dup[props.i][props.j] == -1
+          ? MovePiece(dup, props.i, props.j, props.setActive, props.active)
+          : dup;
 
-    props.setBoard([...dup]);
-    console.log(props.board);
+      props.setBoard([...dup]);
+      console.log(props.board);
+    }
   };
 
   return (

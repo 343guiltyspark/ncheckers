@@ -16,56 +16,60 @@ a {
 }
 
 .board {
-  margin-bottom:10px;
+  margin-bottom: 10px;
 }
 
 .cell {
   display: inline-block;
   height: 49px;
-  width : 49px;
-  background-color : white;   
-  border:solid 1px;
-  border-spacing :0px;
-  padding:0px;
-  margin:0px
+  width: 49px;
+  background-color: white;
+  border: solid 1px;
+  border-spacing: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 
 .white {
-  background-color : white;   
+  background-color: white;
 }
 
 .black {
-  background-color : black;   
+  background-color: black;
 }
 
 .available {
-  background-color : cyan;   
+  background-color: cyan;
 }
 
 .piece {
- 
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    margin:auto;
-    margin-top: 5px; 
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin: auto;
+  margin-top: 5px;
 }
 
-.gray {  
-    background-color: gray;  
+.gray {
+  background-color: gray;
 }
 
 .red {
-    background-color: red;
+  background-color: red;
 }
 
 .selected {
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  margin:auto;
+  margin: auto;
   margin-top: 5px;
   border-width: 3px;
   background-color: yellow;
   z-index: 10;
+}
+
+.inputBox {
+  margin: auto;
+  padding: 20px;
 }

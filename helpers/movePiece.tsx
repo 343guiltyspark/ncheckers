@@ -1,6 +1,12 @@
 import { Unselect } from "../helpers/unselect";
 
-export const MovePiece = (dup: Array<any>, i: number, j: number) => {
+export const MovePiece = (
+  dup: Array<any>,
+  i: number,
+  j: number,
+  setActive: (setActive) => void,
+  active: number
+) => {
   let newI: number = i;
   let newJ: number = j;
   let selected: number;
@@ -41,7 +47,6 @@ export const MovePiece = (dup: Array<any>, i: number, j: number) => {
     let deltaJ: number;
     let deltaI: number;
     if (Math.abs(eye - i) == 2) {
-      console.log("Someone was eatern");
       deltaI = (i - eye) / 2;
       deltaJ = (j - jay) / 2;
       console.log(i, j);
@@ -55,6 +60,8 @@ export const MovePiece = (dup: Array<any>, i: number, j: number) => {
 
     // @ ^^^^^^^^^^^^^^^^
     dup = Unselect(dup);
+    let aDup = active == 2 ? 3 : 2;
+    setActive(aDup);
   }
 
   return dup;
