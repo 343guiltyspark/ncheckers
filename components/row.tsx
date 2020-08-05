@@ -8,7 +8,6 @@ interface props {
   j?: number;
   board: Array<any>;
   dup?: Array<any>;
-  tempArray: Array<number>;
   setBoard: (setBoard) => void;
   setActive: (setActive) => void;
   active: number;
