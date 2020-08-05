@@ -16,6 +16,7 @@ a {
 }
 
 .board {
+  padding-top: 10px;
   margin-bottom: 10px;
 }
 
@@ -71,5 +72,21 @@ a {
 
 .inputBox {
   margin: auto;
-  padding: 20px;
+  padding: 5px;
+  text-align: center;
+}
+
+.top {
+  padding: 5px;
+}
+
+.activePlayer {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  padding-bottom: 10px;
+  border: darkgreen 3px solid;
+  text-align: center;
+  background-color: lightgreen;
 }

@@ -31,20 +31,31 @@ export const Board: React.FC<boardProps> = (boardProps) => {
     console.log(nValue);
     setBoard([]);
     moves == false ? Loadboard(board, nValue, setBoard, setMoves) : null;
-    console.log(board);
+    setActive(2);
+  };
+
+  const setPlayer = () => {
+    return active == 2 ? "piece red" : active == 3 ? "piece gray" : null;
   };
 
   return (
     <div>
-      <div className={"inputBox"}>
-        <label htmlFor="nValue"> Select Rows : </label>
-        <input
-          type="number"
-          id="nValue"
-          value={nValue}
-          onChange={(e) => onChangeHandler(e)}
-        ></input>
+      <div className={"top"}>
+        <div className={"inputBox"}>
+          <label htmlFor="nValue"> Select Rows : </label>
+          <input
+            type="number"
+            id="nValue"
+            value={nValue}
+            onChange={(e) => onChangeHandler(e)}
+          ></input>
+        </div>
+        <div className="activePlayer">
+          <p>Next Move :</p>
+          <div className={setPlayer()}></div>
+        </div>
       </div>
+
       <main className={"board"}>
         {board.map((r, i) => (
           <Row
