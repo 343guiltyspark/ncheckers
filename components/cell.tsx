@@ -1,6 +1,6 @@
 import { Unselect } from "../helpers/unselect";
 import { AvailableMoves } from "../helpers/availableMoves";
-import { MovePiece } from "../helpers/MovePiece";
+import { MovePiece } from "../helpers/movePiece";
 
 interface props {
   board?: Array<any>;
