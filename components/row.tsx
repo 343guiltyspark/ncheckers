@@ -16,14 +16,7 @@ interface props {
 
 export const Row: React.FC<props> = (props) => {
   return (
-    <div
-      style={{
-        margin: "-5px",
-        padding: "0px",
-        width: 60 * props.n,
-        textAlign: "center",
-      }}
-    >
+    <div style={{ margin: "-5px", padding: "0px" }}>
       {props.board[props.i].map((c, i) => (
         <Cell
           c={c}
