@@ -5,7 +5,6 @@ export const Loadboard = (
   setMoves: (setMoves) => void
 ) => {
   setMoves(true);
-  console.log(nValue);
   const log10 = (x, y) => {
     return Math.log(y) / Math.log(x);
   };
@@ -14,7 +13,6 @@ export const Loadboard = (
     let val = nVal;
     let exVal = [];
     let mVal;
-    console.log(nVal);
     do {
       mVal = Math.floor(log10(2, val));
       exVal.push(mVal);
@@ -24,49 +22,77 @@ export const Loadboard = (
     exVal = exVal.reverse();
     let odd = false;
     let i = 0;
-    let unit = [0, 1];
-    console.log("exval", exVal);
+    let unitB = [0, 1];
+    let unitR = [0, 2];
+    let unitG = [0, 3];
     odd = nVal % 2 === 0 ? false : true;
     exVal[0] == 0 ? exVal.shift() : exVal;
-    var arry = new Array();
-    arry[0] = unit;
+    var arryB = new Array();
+    var arryR = new Array();
+    var arryG = new Array();
+    arryB[0] = unitB;
+    arryR[0] = unitR;
+    arryG[0] = unitG;
     while (i < exVal.length) {
-      arry[i] = i > 0 ? arry[i - 1] : arry[i];
+      arryB[i] = i > 0 ? arryB[i - 1] : arryB[i];
+      arryR[i] = i > 0 ? arryR[i - 1] : arryR[i];
+      arryG[i] = i > 0 ? arryG[i - 1] : arryG[i];
+
       let initVal = i != 0 ? exVal[i - 1] : 0;
+
       for (var j = initVal; j < exVal[i]; j++) {
-        arry[i] = exVal[i] == 1 || j == 0 ? unit : arry[i].concat(arry[i]);
+        arryB[i] = exVal[i] == 1 || j == 0 ? unitB : arryB[i].concat(arryB[i]);
+        arryR[i] = exVal[i] == 1 || j == 0 ? unitR : arryR[i].concat(arryR[i]);
+        arryG[i] = exVal[i] == 1 || j == 0 ? unitG : arryG[i].concat(arryG[i]);
       }
+
       i++;
     }
-    let row = new Array();
-    for (var k = 0; k < arry.length; k++) {
-      row = row.concat(arry[k]);
+
+    let rowB = new Array();
+    let rowR = new Array();
+    let rowG = new Array();
+    for (var k = 0; k < arryB.length; k++) {
+      rowB = rowB.concat(arryB[k]);
+      rowR = rowR.concat(arryR[k]);
+      rowG = rowG.concat(arryG[k]);
     }
-    // console.log(row);
-    // console.log(odd);
-    //odd == true ? row.shift() : null;
-    odd == true ? row.push(0) : null;
+
+    odd == true ? rowB.push(0) : null;
+    odd == true ? rowR.push(0) : null;
+    odd == true ? rowG.push(0) : null;
+
     //odd == true ? row.push(1) : null;
-    console.log(row);
-    let oddRow = new Array();
-    oddRow = [...row];
+    let oddRowB = new Array();
+    let oddRowR = new Array();
+    let oddRowG = new Array();
+    oddRowB = [...rowB];
+    oddRowR = [...rowR];
+    oddRowG = [...rowG];
+
     // oddRow.shift();
     // oddRow.push(0);
-    oddRow.shift();
-    odd == true ? oddRow.push(1) : oddRow.push(0);
+    oddRowB.shift();
+    oddRowR.shift();
+    oddRowG.shift();
 
-    //odd == true ? oddRow.shift() : null;
+    odd == true ? oddRowB.push(1) : oddRowB.push(0);
+    odd == true ? oddRowR.push(2) : oddRowR.push(0);
+    odd == true ? oddRowG.push(3) : oddRowG.push(0);
 
-    //odd == true ? oddRow.push(1) : null;
-    // odd ? oddRow.shift() : null;
-    // odd ? row.push(0) : null;
+    for (var n = 0; n < pRegion; n++) {
+      board[n] = n % 2 == 0 ? [...rowR] : [...oddRowR];
+      board[n] = n % 2 == 0 ? [...rowR] : [...oddRowR];
+    }
 
-    //oddRow.push(1);
-    //console.log(row, oddRow);
-    //console.log(nVal);
-    for (var n = 0; n < nVal; n++) {
-      // console.log(n % 2);
-      board[n] = n % 2 == 0 ? row : oddRow;
+    for (var o = n; o < nVal - pRegion; o++) {
+      board[o] = o % 2 == 0 ? [...rowB] : [...oddRowB];
+      board[o] = o % 2 == 0 ? [...rowB] : [...oddRowB];
+    }
+
+    for (var m = o; m < nVal; m++) {
+      board[m] = m % 2 == 0 ? [...rowG] : [...oddRowG];
+      board[m] = m % 2 == 0 ? [...rowG] : [...oddRowG];
     }
   };
 
@@ -79,47 +105,5 @@ export const Loadboard = (
   let pieceRegion = (nValue - mid) / 2;
 
   buildPArry(pieceRegion, nValue);
-
-  // // expected output: 4
-  // let val = 585
-
-  // let e = getBaseLog(2,val);
-  // let r = Math.floor(e);
-  // let n = Math.pow(2,r)
-  // let m = val - n
-
-  // let i = getBaseLog(2,m);
-  // let j = Math.floor(i);
-  // let k = Math.pow(2,j);
-  // let l = m - k;
-
-  // let a = getBaseLog(2,l);
-  // let b = Math.floor(a);
-  // let d = Math.pow(2,b);
-  // let f = l - d;
-
-  // let g = getBaseLog(2,f);
-  // let h = Math.floor(g);
-  // let o = Math.pow(2,h);
-  // let p = f - o;
-
-  // let i = 0,
-  //   j = 0;
-  // while (i < nValue) {
-  //   board[i] = [];
-  //   while (j < nValue) {
-  //     board[i][j] = i % 2 == 0 ? j % 2 : (j + 1) % 2; //Set white/black cells
-  //     board[i][j] =
-  //       board[i][j] === 1 && i < pieceRegion
-  //         ? 2
-  //         : i > nValue - pieceRegion - 1 && board[i][j] === 1
-  //         ? 3
-  //         : board[i][j]; //Set initial red  and gray pieces , board value of int 2 or 3 respoectively. ;
-  //     j++;
-  //   }
-  //   j = 0;
-  //   i++;
-  // }
-  console.log(board);
   setBoard(board);
 };
