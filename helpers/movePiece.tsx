@@ -5,7 +5,10 @@ export const MovePiece = (
   i: number,
   j: number,
   setActive: (setActive) => void,
-  active: number
+  active: number,
+  prev?: object,
+  hc: any,
+  sHC: (setHightLight) => void
 ) => {
   let newI: number = i;
   let newJ: number = j;
@@ -15,17 +18,7 @@ export const MovePiece = (
   let jay: number;
 
   //Find selected piece
-  dup.map((r, k) => {
-    r.map((e: number, l: number) => {
-      if (e == -2 || e == -3) {
-        sL = [k, l];
-        k = dup.length;
-        l = dup.length;
-      }
-    });
-  });
-  console.log(dup);
-  console.log(sL);
+  sL = prev ? [prev.i, prev.j] : false;
   if (sL == false) {
     return dup;
   } else {
@@ -36,11 +29,12 @@ export const MovePiece = (
 
   // check to see if space is eligble for move and then move;
   if (dup[newI][newJ] == -1) {
-    console.log(dup);
+    //Move piece to selected cell ;
     dup[newI][newJ] = Math.abs(selected);
     dup[sL[0]][sL[1]] = 1;
-    // will propbablay put consume piece here later
-    //console.log(eye, i); =
+
+    // Check to see if a move is a consumption move,
+    //if it is, identify target and change cell value to 1
 
     let posJ: number;
     let posI: number;
@@ -49,17 +43,19 @@ export const MovePiece = (
     if (Math.abs(eye - i) == 2) {
       deltaI = (i - eye) / 2;
       deltaJ = (j - jay) / 2;
-      console.log(i, j);
-      console.log(deltaI, deltaJ);
       posI = i - deltaI;
       posJ = j - deltaJ;
-
-      console.log(posI, posJ);
       dup[posI][posJ] = 1;
     }
 
     // @ ^^^^^^^^^^^^^^^^
-    dup = Unselect(dup);
+    //Clear out existing highlighted cell/pice
+    dup[prev.i][prev.j] =
+      dup[i][j] >= 0 ? Math.abs(dup[prev.i][prev.j]) : dup[prev.i][prev.j];
+    hc.map((e) => (dup[e.i][e.j] = Math.abs(dup[e.i][e.j])));
+    sHC([{ i: 0, j: 0 }]);
+
+    //Change Player turn once a move has been completed.
     let aDup = active == 2 ? 3 : 2;
     setActive(aDup);
   }
