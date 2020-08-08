@@ -1,6 +1,12 @@
 import { Unselect } from "../helpers/unselect";
 
-export const AvailableMoves = (dup: Array<any>, i: number, j: number) => {
+export const AvailableMoves = (
+  dup: Array<any>,
+  i: number,
+  j: number,
+  hc: any,
+  sHC: (setHighLighted) => void
+) => {
   let newIL: number;
   let newIH: number;
   let newJL: number;
@@ -9,6 +15,10 @@ export const AvailableMoves = (dup: Array<any>, i: number, j: number) => {
   let high: number = 1;
   let cond: boolean = true;
   let oppo: number = dup[i][j] == -2 ? 3 : dup[i][j] == -3 ? 2 : null;
+  let dupHC: any = new Array();
+
+  hc.map((e) => (dup[e.i][e.j] = Math.abs(dup[e.i][e.j])));
+  sHC([{}]);
 
   //Identify type of cell selected
   //If IN {2,3} idenify advancement direction {- for red, + for gray};
@@ -49,12 +59,20 @@ export const AvailableMoves = (dup: Array<any>, i: number, j: number) => {
   if (newIL !== null && newJL !== null) {
     console.log("JL");
     dup[newIL][newJL] = dup[newIL][newJL] == 1 ? -1 : dup[newIL][newJL];
+
+    dupHC.push({ i: newIL, j: newJL });
+    console.log(dupHC);
   }
 
   if (newIL !== null && newJH !== null) {
     console.log("JH");
     dup[newIH][newJH] = dup[newIH][newJH] == 1 ? -1 : dup[newIH][newJH];
+
+    dupHC.push({ i: newIH, j: newJH });
+    console.log(dupHC);
   }
+  console.log(dupHC);
+  sHC(dupHC);
   // Return the board state
   return dup;
 };
