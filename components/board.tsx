@@ -13,6 +13,8 @@ export const Board: React.FC<boardProps> = (boardProps) => {
   const [board, setBoard] = useState([]);
   const [moves, setMoves] = useState(false);
   const [active, setActive] = useState(2);
+  const [previousCell, setPreviousCell] = useState({ i: 0, j: 0 });
+  const [highLightCells, setHighLight] = useState([{ i: 0, j: 0 }]);
 
   moves == false ? Loadboard(board, nValue, setBoard, setMoves) : null;
   // Board Values (Enum model) = {
@@ -27,6 +29,7 @@ export const Board: React.FC<boardProps> = (boardProps) => {
   //                         }
   const onChangeHandler = (e) => {
     setMoves(false);
+
     setNValue(e.target.value);
     console.log(nValue);
     setBoard([]);
@@ -59,12 +62,17 @@ export const Board: React.FC<boardProps> = (boardProps) => {
       <main className={"board"}>
         {board.map((r, i) => (
           <Row
+            key={i}
             i={i}
             n={nValue}
             setBoard={setBoard}
             board={board}
             setActive={setActive}
             active={active}
+            pC={previousCell}
+            sPC={setPreviousCell}
+            hc={highLightCells}
+            sHC={setHighLight}
           />
         ))}
       </main>
