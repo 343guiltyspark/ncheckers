@@ -13,6 +13,10 @@ interface props {
   i: number;
   j: number;
   active: number;
+  pc: Object;
+  sPC: (setPreviousCell) => void;
+  hc: any;
+  sHC: (setHighLighted) => void;
 }
 
 export const Cell: React.FC<props> = (props) => {
@@ -40,13 +44,17 @@ export const Cell: React.FC<props> = (props) => {
   }
 
   const ClickHandler = () => {
+    let prev = { ...props.pc };
     if (
       props.board[props.i][props.j] == props.active ||
       props.board[props.i][props.j] == -1
     ) {
       console.log(props.board);
       let dup = [...props.board];
-      dup = dup[props.i][props.j] >= 0 ? Unselect(dup) : dup;
+      dup[prev.i][prev.j] =
+        dup[props.i][props.j] >= 0
+          ? Math.abs(dup[prev.i][prev.j])
+          : dup[prev.i][prev.j];
       console.log(dup);
       dup[props.i][props.j] =
         dup[props.i][props.j] !== 1 &&
@@ -54,20 +62,28 @@ export const Cell: React.FC<props> = (props) => {
         dup[props.i][props.j] !== 0
           ? props.board[props.i][props.j] * -1
           : dup[props.i][props.j];
-      console.log(dup);
       dup =
         dup[props.i][props.j] == -2 || dup[props.i][props.j] == -3
-          ? AvailableMoves(dup, props.i, props.j)
+          ? AvailableMoves(dup, props.i, props.j, props.hc, props.sHC)
           : dup;
 
-      console.log(dup[props.i][props.j]);
       dup =
         dup[props.i][props.j] == -1
-          ? MovePiece(dup, props.i, props.j, props.setActive, props.active)
+          ? MovePiece(
+              dup,
+              props.i,
+              props.j,
+              props.setActive,
+              props.active,
+              prev,
+              props.hc,
+              props.sHC
+            )
           : dup;
 
       props.setBoard([...dup]);
-      console.log(props.board);
+      props.sPC([]);
+      props.sPC({ i: props.i, j: props.j });
     }
   };
 
