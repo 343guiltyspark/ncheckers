@@ -3,9 +3,7 @@ import styles from "../styles/Home.module.css";
 export const Footer: React.FC = () => {
   return (
     <footer className={styles.footer}>
-      <p> Powered by{" 343guiltySpark "} </p>
       <p>
-        {" "}
         Source Code Available on{" "}
         <b>
           <a href="https://github.com/343guiltyspark/ncheckers">
