@@ -11,14 +11,19 @@ interface props {
   setBoard: (setBoard) => void;
   setActive: (setActive) => void;
   active: number;
+  pC: Object;
+  sPC: (setPreviousCell) => void;
+  hc: any;
+  sHC: (setHighLighted) => void;
   // setBoardHandler: (setBoardHandler)=>void,
 }
 
 export const Row: React.FC<props> = (props) => {
   return (
-    <div style={{ margin: "-5px", padding: "0px" }}>
+    <div style={{ margin: "-5px", padding: "0px", width: 50 * props.n }}>
       {props.board[props.i].map((c, i) => (
         <Cell
+          key={i + props.i * i}
           c={c}
           i={props.i}
           j={i}
@@ -27,6 +32,10 @@ export const Row: React.FC<props> = (props) => {
           //  setBoardHandler={props.setBoardHandler}
           setActive={props.setActive}
           active={props.active}
+          pc={props.pC}
+          sPC={props.sPC}
+          hc={props.hc}
+          sHC={props.sHC}
         />
       ))}
     </div>
