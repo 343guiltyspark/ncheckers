@@ -5,6 +5,7 @@ export const Loadboard = (
   setMoves: (setMoves) => void
 ) => {
   setMoves(true);
+
   const log10 = (x, y) => {
     return Math.log(y) / Math.log(x);
   };
@@ -32,13 +33,13 @@ export const Loadboard = (
     let unitR = [0, 2];
     let unitG = [0, 3];
 
-    //Check to see if nVal is and odd number;
+    //Check to see if nVal is an odd number;
     odd = nVal % 2 === 0 ? false : true;
 
-    //if the firt value is a zero for the log10 base array, shift it. Parity is now stored in var odd;
+    //if the first value is a zero for the log10 base array, shift it. Parity is now stored in var odd;
     exVal[0] == 0 ? exVal.shift() : exVal;
 
-    //define uniqu array spaces for each type of row.
+    //define unique array spaces for each type of row.
     var arryB = new Array();
     var arryR = new Array();
     var arryG = new Array();
