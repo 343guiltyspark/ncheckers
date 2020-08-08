@@ -1,17 +1,18 @@
-import styles from '../styles/Home.module.css'
+import styles from "../styles/Home.module.css";
 
 export const Footer: React.FC = () => {
-
-return(
+  return (
     <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    )
-}
+      <p> Powered by{" 343guiltySpark "} </p>
+      <p>
+        {" "}
+        Source Code Available on{" "}
+        <b>
+          <a href="https://github.com/343guiltyspark/ncheckers">
+            github/343guiltyspark
+          </a>
+        </b>
+      </p>
+    </footer>
+  );
+};

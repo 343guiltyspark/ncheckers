@@ -44,7 +44,7 @@ export const Cell: React.FC<props> = (props) => {
   }
 
   const ClickHandler = () => {
-    let prev = { ...props.pc };
+    let prev: any = { ...props.pc };
     if (
       props.board[props.i][props.j] == props.active ||
       props.board[props.i][props.j] == -1

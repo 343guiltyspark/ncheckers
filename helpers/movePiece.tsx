@@ -6,9 +6,9 @@ export const MovePiece = (
   j: number,
   setActive: (setActive) => void,
   active: number,
-  prev?: object,
-  hc: any,
-  sHC: (setHightLight) => void
+  prev?: any,
+  hc?: any,
+  sHC?: (setHightLight) => void
 ) => {
   let newI: number = i;
   let newJ: number = j;
