@@ -66,12 +66,11 @@ export const Loadboard = (
     let oddRowB = new Array();
     let oddRowR = new Array();
     let oddRowG = new Array();
+
     oddRowB = [...rowB];
     oddRowR = [...rowR];
     oddRowG = [...rowG];
 
-    // oddRow.shift();
-    // oddRow.push(0);
     oddRowB.shift();
     oddRowR.shift();
     oddRowG.shift();
@@ -79,20 +78,20 @@ export const Loadboard = (
     odd == true ? oddRowB.push(1) : oddRowB.push(0);
     odd == true ? oddRowR.push(2) : oddRowR.push(0);
     odd == true ? oddRowG.push(3) : oddRowG.push(0);
+    if (nVal == 1) {
+      board[n - 1] = rowB;
+    } else {
+      for (var n = 0; n < pRegion; n++) {
+        board[n] = n % 2 == 0 ? [...rowR] : [...oddRowR];
+      }
 
-    for (var n = 0; n < pRegion; n++) {
-      board[n] = n % 2 == 0 ? [...rowR] : [...oddRowR];
-      board[n] = n % 2 == 0 ? [...rowR] : [...oddRowR];
-    }
+      for (var o = n; o < nVal - pRegion; o++) {
+        board[o] = o % 2 == 0 ? [...rowB] : [...oddRowB];
+      }
 
-    for (var o = n; o < nVal - pRegion; o++) {
-      board[o] = o % 2 == 0 ? [...rowB] : [...oddRowB];
-      board[o] = o % 2 == 0 ? [...rowB] : [...oddRowB];
-    }
-
-    for (var m = o; m < nVal; m++) {
-      board[m] = m % 2 == 0 ? [...rowG] : [...oddRowG];
-      board[m] = m % 2 == 0 ? [...rowG] : [...oddRowG];
+      for (var m = o; m < nVal; m++) {
+        board[m] = m % 2 == 0 ? [...rowG] : [...oddRowG];
+      }
     }
   };
 
