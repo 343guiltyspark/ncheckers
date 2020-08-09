@@ -15,7 +15,10 @@ interface props {
   sPC: (setPreviousCell) => void;
   hc: any;
   sHC: (setHighLighted) => void;
-  // setBoardHandler: (setBoardHandler)=>void,
+  redScore: number;
+  grayScore: number;
+  setRedScore: (setRedScore) => void;
+  setGrayScore: (setGrayScore) => void;
 }
 
 export const Row: React.FC<props> = (props) => {
@@ -36,6 +39,10 @@ export const Row: React.FC<props> = (props) => {
           sPC={props.sPC}
           hc={props.hc}
           sHC={props.sHC}
+          redScore={props.redScore}
+          grayScore={props.grayScore}
+          setRedScore={props.setRedScore}
+          setGrayScore={props.setGrayScore}
         />
       ))}
     </div>

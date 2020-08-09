@@ -15,6 +15,8 @@ export const Board: React.FC<boardProps> = (boardProps) => {
   const [active, setActive] = useState(2);
   const [previousCell, setPreviousCell] = useState({ i: 0, j: 0 });
   const [highLightCells, setHighLight] = useState([{ i: 0, j: 0 }]);
+  const [redScore, setRedScore] = useState(0);
+  const [grayScore, setGrayScore] = useState(0);
 
   moves == false ? Loadboard(board, nValue, setBoard, setMoves) : null;
   // Board Values (Enum model) = {
@@ -53,9 +55,25 @@ export const Board: React.FC<boardProps> = (boardProps) => {
             onChange={(e) => onChangeHandler(e)}
           ></input>
         </div>
-        <div className="activePlayer">
-          <p>Next Move :</p>
-          <div className={setPlayer()}></div>
+        <div>
+          <div className="activePlayer">
+            <div className="piece red"></div>
+            <h3>
+              Score: <br />
+              {redScore}
+            </h3>
+          </div>
+          <div className="activePlayer center">
+            <p>Next Move :</p>
+            <div className={setPlayer()}></div>
+          </div>
+          <div className="activePlayer">
+            <div className="piece gray"></div>
+            <h3>
+              Score: <br />
+              {grayScore}{" "}
+            </h3>
+          </div>
         </div>
       </div>
 
@@ -73,6 +91,10 @@ export const Board: React.FC<boardProps> = (boardProps) => {
             sPC={setPreviousCell}
             hc={highLightCells}
             sHC={setHighLight}
+            redScore={redScore}
+            setRedScore={setRedScore}
+            grayScore={grayScore}
+            setGrayScore={setGrayScore}
           />
         ))}
       </main>

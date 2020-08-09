@@ -8,7 +8,11 @@ export const MovePiece = (
   active: number,
   prev?: any,
   hc?: any,
-  sHC?: (setHightLight) => void
+  sHC?: (setHightLight) => void,
+  redScore: number,
+  grayScore: number,
+  setRedScore: (setRedScore) => void,
+  setGrayScore: (setGrayScore) => void
 ) => {
   let newI: number = i;
   let newJ: number = j;
@@ -47,6 +51,13 @@ export const MovePiece = (
       posI = i - deltaI;
       posJ = j - deltaJ;
       dup[posI][posJ] = 1;
+
+      //trackscore counter
+      Math.abs(dup[i][j]) == 2
+        ? setRedScore(redScore + 1)
+        : Math.abs(dup[i][j]) == 3
+        ? setGrayScore(grayScore + 1)
+        : null;
     }
 
     // @ ^^^^^^^^^^^^^^^^

@@ -17,6 +17,10 @@ interface props {
   sPC: (setPreviousCell) => void;
   hc: any;
   sHC: (setHighLighted) => void;
+  redScore: number;
+  grayScore: number;
+  setRedScore: (setRedScore) => void;
+  setGrayScore: (setGrayScore) => void;
 }
 
 export const Cell: React.FC<props> = (props) => {
@@ -46,14 +50,12 @@ export const Cell: React.FC<props> = (props) => {
   const ClickHandler = () => {
     let prev: any = { ...props.pc };
     if (
+      //Enforce player turns and ensure click event only fires for valid Icons
       Math.abs(props.board[props.i][props.j]) === props.active ||
       props.board[props.i][props.j] == -1
     ) {
-      console.log(props.board);
       let dup = [...props.board];
 
-      console.log(dup[prev.i][prev.j]);
-      console.log(dup[props.i][props.j]);
       // Check if new clicked piece is not clicked and is a valid piece to un selected previously selected pieces.
       dup[prev.i][prev.j] =
         dup[props.i][props.j] === -1 ||
@@ -62,6 +64,7 @@ export const Cell: React.FC<props> = (props) => {
           ? Math.abs(dup[prev.i][prev.j])
           : dup[prev.i][prev.j];
 
+      //Deselect if another cell is clicked
       dup[props.i][props.j] =
         dup[props.i][props.j] !== 1 &&
         dup[props.i][props.j] !== -1 &&
@@ -69,17 +72,20 @@ export const Cell: React.FC<props> = (props) => {
           ? Math.abs(props.board[props.i][props.j]) * -1
           : dup[props.i][props.j];
 
+      //Check if cell has valid piece . If it is, then find moves available for that piece and change board to reflect that.
       dup =
         Math.abs(dup[props.i][props.j]) == 2 ||
         Math.abs(dup[props.i][props.j]) == 3
           ? AvailableMoves(dup, props.i, props.j, props.hc, props.sHC)
           : dup;
 
+      //Check clicked cell for piece is same color.
       dup[props.i][props.j] =
         dup[props.i][props.j] == props.active
           ? -1 * dup[props.i][props.j]
           : dup[props.i][props.j];
 
+      //Move piece if selected cell is a valid move.
       dup =
         dup[props.i][props.j] == -1
           ? MovePiece(
@@ -90,13 +96,19 @@ export const Cell: React.FC<props> = (props) => {
               props.active,
               prev,
               props.hc,
-              props.sHC
+              props.sHC,
+              props.redScore,
+              props.grayScore,
+              props.setRedScore,
+              props.setGrayScore
             )
           : dup;
 
+      //Set board state
       props.setBoard([...dup]);
       props.sPC([]);
 
+      //Record cell id into previous cell state if cell contains a valid piece.
       Math.abs(dup[props.i][props.j]) == 2 ||
       Math.abs(dup[props.i][props.j]) == 3
         ? props.sPC({ i: props.i, j: props.j })

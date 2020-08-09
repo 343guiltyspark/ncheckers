@@ -82,13 +82,16 @@ a {
 }
 
 .activePlayer {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  display: inline-block;
+  margin-left: 12px;
+  margin-right: 12px;
   width: 100px;
   padding-bottom: 20px;
-  border: darkgreen 3px solid;
+  border: black 3px solid;
   text-align: center;
-  background-color: lightgreen;
   border-radius: 25%;
+}
+
+.center {
+  background-color: lightgreen;
 }
