@@ -9,10 +9,10 @@ export const MovePiece = (
   prev?: any,
   hc?: any,
   sHC?: (setHightLight) => void,
-  redScore: number,
-  grayScore: number,
-  setRedScore: (setRedScore) => void,
-  setGrayScore: (setGrayScore) => void
+  redScore?: number,
+  grayScore?: number,
+  setRedScore?: (setRedScore) => void,
+  setGrayScore?: (setGrayScore) => void
 ) => {
   let newI: number = i;
   let newJ: number = j;
