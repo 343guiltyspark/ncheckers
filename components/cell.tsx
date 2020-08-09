@@ -46,26 +46,39 @@ export const Cell: React.FC<props> = (props) => {
   const ClickHandler = () => {
     let prev: any = { ...props.pc };
     if (
-      props.board[props.i][props.j] == props.active ||
+      Math.abs(props.board[props.i][props.j]) === props.active ||
       props.board[props.i][props.j] == -1
     ) {
       console.log(props.board);
       let dup = [...props.board];
+
+      console.log(dup[prev.i][prev.j]);
+      console.log(dup[props.i][props.j]);
+      // Check if new clicked piece is not clicked and is a valid piece to un selected previously selected pieces.
       dup[prev.i][prev.j] =
-        dup[props.i][props.j] >= 0
+        dup[props.i][props.j] === -1 ||
+        dup[prev.i][prev.j] === -2 ||
+        dup[prev.i][prev.j] === -3
           ? Math.abs(dup[prev.i][prev.j])
           : dup[prev.i][prev.j];
-      console.log(dup);
+
       dup[props.i][props.j] =
         dup[props.i][props.j] !== 1 &&
         dup[props.i][props.j] !== -1 &&
         dup[props.i][props.j] !== 0
-          ? props.board[props.i][props.j] * -1
+          ? Math.abs(props.board[props.i][props.j]) * -1
           : dup[props.i][props.j];
+
       dup =
-        dup[props.i][props.j] == -2 || dup[props.i][props.j] == -3
+        Math.abs(dup[props.i][props.j]) == 2 ||
+        Math.abs(dup[props.i][props.j]) == 3
           ? AvailableMoves(dup, props.i, props.j, props.hc, props.sHC)
           : dup;
+
+      dup[props.i][props.j] =
+        dup[props.i][props.j] == props.active
+          ? -1 * dup[props.i][props.j]
+          : dup[props.i][props.j];
 
       dup =
         dup[props.i][props.j] == -1
@@ -83,7 +96,11 @@ export const Cell: React.FC<props> = (props) => {
 
       props.setBoard([...dup]);
       props.sPC([]);
-      props.sPC({ i: props.i, j: props.j });
+
+      Math.abs(dup[props.i][props.j]) == 2 ||
+      Math.abs(dup[props.i][props.j]) == 3
+        ? props.sPC({ i: props.i, j: props.j })
+        : null;
     }
   };
 

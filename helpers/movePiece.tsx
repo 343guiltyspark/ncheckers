@@ -17,6 +17,7 @@ export const MovePiece = (
   let eye: number;
   let jay: number;
 
+  console.log("MovePiece");
   //Find selected piece
   sL = prev ? [prev.i, prev.j] : false;
   if (sL == false) {
@@ -51,7 +52,9 @@ export const MovePiece = (
     // @ ^^^^^^^^^^^^^^^^
     //Clear out existing highlighted cell/pice
     dup[prev.i][prev.j] =
-      dup[i][j] >= 0 ? Math.abs(dup[prev.i][prev.j]) : dup[prev.i][prev.j];
+      dup[prev.i][prev.j] < 0 && dup[i][j] != dup[prev.i][prev.j]
+        ? Math.abs(dup[prev.i][prev.j])
+        : dup[prev.i][prev.j];
     hc.map((e) => (dup[e.i][e.j] = Math.abs(dup[e.i][e.j])));
     sHC([{ i: 0, j: 0 }]);
 

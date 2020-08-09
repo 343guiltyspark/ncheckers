@@ -17,16 +17,16 @@ export const AvailableMoves = (
   let oppo: number = dup[i][j] == -2 ? 3 : dup[i][j] == -3 ? 2 : null;
   let dupHC: any = new Array();
 
+  console.log("Available Moves");
+  // check to see if highligted cells are defined if not define an object.
+  hc = typeof hc[0].i === "undefined" ? [{ i: 0, j: 0 }] : hc;
   hc.map((e) => (dup[e.i][e.j] = Math.abs(dup[e.i][e.j])));
   sHC([{}]);
 
   //Identify type of cell selected
   //If IN {2,3} idenify advancement direction {- for red, + for gray};
-  let dir: number = dup[i][j] == -2 ? 1 : dup[i][j] == -3 ? -1 : 0;
-  if (dir == 0) {
-    dup = Unselect(dup);
-    return dup;
-  }
+  let dir: number = dup[i][j] == -2 ? 1 : dup[i][j] == -3 ? -1 : null;
+
   //identiy boundry cases beyon the board and assign new I row value (var newI)
   //do th same for both new J values (var newJL, and var newJH)
   let dirJH: number = dir;
@@ -34,7 +34,7 @@ export const AvailableMoves = (
   let count: number = 1;
   let cond1: boolean = false;
   let cond2: boolean = false;
-  //console.log(i, j);
+
   do {
     newIL = i + dirJL < 0 || i + dirJL > dup.length - 1 ? null : i + dirJL;
     newIH = i + dirJH < 0 || i + dirJH > dup.length - 1 ? null : i + dirJH;
@@ -72,7 +72,11 @@ export const AvailableMoves = (
     console.log(dupHC);
   }
   console.log(dupHC);
+
+  dupHC = dupHC[0].i === "undefined" ? [{ i: 0, j: 0 }] : dupHC;
   sHC(dupHC);
+
+  console.log(dup);
   // Return the board state
   return dup;
 };
