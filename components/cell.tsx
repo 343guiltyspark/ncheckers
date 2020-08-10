@@ -106,6 +106,7 @@ export const Cell: React.FC<props> = (props) => {
 
       //Set board state
       props.setBoard([...dup]);
+      //set precious click object
       props.sPC([]);
 
       //Record cell id into previous cell state if cell contains a valid piece.
