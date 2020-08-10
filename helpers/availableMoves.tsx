@@ -43,12 +43,18 @@ export const AvailableMoves = (
 
     count++;
 
-    //console.log(newIL, newJL, newIH, newJH);
-    dirJL = dup[newIL][newJL] == oppo ? dir * count : dirJL;
-    dirJH = dup[newIH][newJH] == oppo ? dir * count : dirJH;
-    low = dup[newIL][newJL] == oppo ? low * count : low;
-    high = dup[newIH][newJH] == oppo ? high * count : high;
-
+    if (typeof dup[newIL] !== "undefined") {
+      if (typeof dup[newIL][newJL] !== "undefined") {
+        dirJL = dup[newIL][newJL] == oppo ? dir * count : dirJL;
+        low = dup[newIL][newJL] == oppo ? low * count : low;
+      }
+    }
+    if (typeof dup[newIH] !== "undefined") {
+      if (typeof dup[newIL][newJH] !== "undefined") {
+        dirJH = dup[newIH][newJH] == oppo ? dir * count : dirJH;
+        high = dup[newIH][newJH] == oppo ? high * count : high;
+      }
+    }
     //console.log(dirJL, dirJH, low, high);
   } while (count <= 2);
 
@@ -72,7 +78,8 @@ export const AvailableMoves = (
     console.log(dupHC);
   }
   console.log(dupHC);
-
+  dupHC = dupHC.length == 0 ? [{ i: 0, j: 0 }] : dupHC;
+  console.log(dupHC);
   dupHC = dupHC[0].i === "undefined" ? [{ i: 0, j: 0 }] : dupHC;
   sHC(dupHC);
 
