@@ -55,7 +55,12 @@ export const Board: React.FC<boardProps> = (boardProps) => {
             onChange={(e) => onChangeHandler(e)}
           ></input>
         </div>
-        <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           <div className="activePlayer">
             <div className="piece red"></div>
             <h3>
@@ -64,8 +69,8 @@ export const Board: React.FC<boardProps> = (boardProps) => {
             </h3>
           </div>
           <div className="activePlayer center">
-            <p>Next Move :</p>
             <div className={setPlayer()}></div>
+            <h3>Next Move</h3>
           </div>
           <div className="activePlayer">
             <div className="piece gray"></div>
