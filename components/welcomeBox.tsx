@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { GameUrl } from "../components/gameUrl";
 import { url } from "../helpers/url";
 
 interface props {
   option: number;
   session: string;
   setOption: (setOption) => void;
-  socket: (socket) => void;
+  socket: (socket, setStandBy) => void;
+  setStandBy: (setStandBy) => void;
 }
 export const WelcomeBox: React.FC<props> = (props) => {
   const [welcomBoxClass, setWBClass] = useState("welcomeBox");
@@ -21,7 +23,7 @@ export const WelcomeBox: React.FC<props> = (props) => {
 
     if (e.target.gameType.value == 2) {
       url("post", "/gameType", { session: props.session, type: 2 });
-      props.socket();
+      props.socket(props.session, props.setStandBy);
     } else if (e.target.gameType.value == 1) {
       url("post", "/gameType", { session: props.session, type: 1 });
     }
@@ -32,16 +34,7 @@ export const WelcomeBox: React.FC<props> = (props) => {
 
   return (
     <div className={welcomBoxClass}>
-      <div className={gameUrlClass}>
-        <h5 className="urlText">
-          Game Url {"\n"} :{" "}
-          <b>
-            {" "}
-            http://reactNCheckers.ernestomaldonado.guru/
-            {props.session}{" "}
-          </b>
-        </h5>
-      </div>
+      <GameUrl gameUrlClass={gameUrlClass} session={props.session} />
 
       <div>
         <form
