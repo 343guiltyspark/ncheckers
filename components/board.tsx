@@ -6,6 +6,8 @@ interface boardProps {
   nValue: Number;
   board: Array<number>;
   moves: boolean;
+  standBy: string;
+  setStandBy: (setStandBy) => void;
 }
 
 export const Board: React.FC<boardProps> = (boardProps) => {
@@ -68,10 +70,12 @@ export const Board: React.FC<boardProps> = (boardProps) => {
               {redScore}
             </h3>
           </div>
-          <div className="activePlayer center">
+
+          <div className={boardProps.standBy}>
             <div className={setPlayer()}></div>
             <h3>Next Move</h3>
           </div>
+
           <div className="activePlayer">
             <div className="piece gray"></div>
             <h3>

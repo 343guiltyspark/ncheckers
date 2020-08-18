@@ -203,3 +203,8 @@ a {
   border-radius: 10px;
   height: inherit;
 }
+
+.waiting {
+  animation: blinker 1s linear infinite;
+  background-color: yellow;
+}
