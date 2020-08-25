@@ -15,6 +15,7 @@ export default function Home(props) {
   const [option, setOption] = useState(1);
   const [standBy, setStandBy] = useState("inPlay");
   const [io, setIO] = useState(null);
+  const [board, setBoard] = useState([]);
 
   // Check Route to determine if there is a session ID submitted
   let sessionId;
@@ -60,7 +61,13 @@ export default function Home(props) {
         setIO={setIO}
       />
       <Header />
-      <Board session={session} standBy={standBy} io={io} />
+      <Board
+        session={session}
+        standBy={standBy}
+        io={io}
+        board={board}
+        setBoard={setBoard}
+      />
       <Footer />
     </div>
   );

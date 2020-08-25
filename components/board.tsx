@@ -11,11 +11,12 @@ interface boardProps {
   moves: boolean;
   standBy: string;
   setStandBy: (setStandBy) => void;
+  setBoard: (setBoard) => void;
 }
 
 export const Board: React.FC<boardProps> = (boardProps) => {
   const [nValue, setNValue] = useState(8);
-  const [board, setBoard] = useState([]);
+  //const [board, setBoard] = useState([]);
   const [moves, setMoves] = useState(false);
   const [active, setActive] = useState(2);
   const [previousCell, setPreviousCell] = useState({ i: 0, j: 0 });
@@ -23,7 +24,9 @@ export const Board: React.FC<boardProps> = (boardProps) => {
   const [redScore, setRedScore] = useState(0);
   const [grayScore, setGrayScore] = useState(0);
 
-  moves == false ? Loadboard(board, nValue, setBoard, setMoves) : null;
+  moves == false
+    ? Loadboard(boardProps.board, nValue, boardProps.setBoard, setMoves)
+    : null;
   // Board Values (Enum model) = {
   //                  0 = white cell
   //                  1 = black cell
@@ -39,8 +42,10 @@ export const Board: React.FC<boardProps> = (boardProps) => {
 
     setNValue(e.target.value);
     console.log(nValue);
-    setBoard([]);
-    moves == false ? Loadboard(board, nValue, setBoard, setMoves) : null;
+    boardProps.setBoard([]);
+    moves == false
+      ? Loadboard(boardProps.board, nValue, boardProps.setBoard, setMoves)
+      : null;
     setActive(2);
   };
 
@@ -72,13 +77,13 @@ export const Board: React.FC<boardProps> = (boardProps) => {
       </div>
 
       <main className={"board"}>
-        {board.map((r, i) => (
+        {boardProps.board.map((r, i) => (
           <Row
             key={i}
             i={i}
             n={nValue}
-            setBoard={setBoard}
-            board={board}
+            setBoard={boardProps.setBoard}
+            board={boardProps.board}
             setActive={setActive}
             active={active}
             pC={previousCell}
