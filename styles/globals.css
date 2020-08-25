@@ -205,6 +205,21 @@ a {
 }
 
 .waiting {
-  animation: blinker 1s linear infinite;
   background-color: yellow;
+}
+
+.scoreBoardRow {
+  display: flex;
+  justify-content: center;
+}
+
+.blinking {
+  padding: 5px;
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }
