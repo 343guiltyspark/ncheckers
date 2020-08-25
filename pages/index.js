@@ -33,7 +33,7 @@ export default function Home(props) {
       console.log(io);
       if (io == null) {
         console.log("Running Socket Connect");
-        socketConnect(props.session, setStandBy, setIO);
+        socketConnect(props.session, setStandBy, setIO, setBoard);
       } else {
         console.log("Io Emit");
         io.emit("secondPlayer", props.sessionId);
@@ -59,6 +59,7 @@ export default function Home(props) {
         socket={socketConnect}
         session={session}
         setIO={setIO}
+        setBoard={setBoard}
       />
       <Header />
       <Board

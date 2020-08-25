@@ -12,6 +12,8 @@ interface boardProps {
   standBy: string;
   setStandBy: (setStandBy) => void;
   setBoard: (setBoard) => void;
+  io: any;
+  session: string;
 }
 
 export const Board: React.FC<boardProps> = (boardProps) => {
@@ -94,6 +96,8 @@ export const Board: React.FC<boardProps> = (boardProps) => {
             setRedScore={setRedScore}
             grayScore={grayScore}
             setGrayScore={setGrayScore}
+            io={boardProps.io}
+            session={boardProps.session}
           />
         ))}
       </main>

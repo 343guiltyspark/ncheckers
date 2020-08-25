@@ -6,9 +6,10 @@ interface props {
   option: number;
   session: string;
   setOption: (setOption) => void;
-  socket: (socket, setStandBy, setIO) => void;
+  socket: (socket, setStandBy, setIO, setBoard) => void;
   setStandBy: (setStandBy) => void;
   setIO: (setIO) => void;
+  setBoard: (setBoard) => void;
 }
 export const WelcomeBox: React.FC<props> = (props) => {
   const [welcomBoxClass, setWBClass] = useState("welcomeBox");
@@ -24,7 +25,12 @@ export const WelcomeBox: React.FC<props> = (props) => {
 
     if (e.target.gameType.value == 2) {
       url("post", "/gameType", { session: props.session, type: 2 });
-      props.socket(props.session, props.setStandBy, props.setIO);
+      props.socket(
+        props.session,
+        props.setStandBy,
+        props.setIO,
+        props.setBoard
+      );
     } else if (e.target.gameType.value == 1) {
       url("post", "/gameType", { session: props.session, type: 1 });
     }

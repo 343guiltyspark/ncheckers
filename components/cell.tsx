@@ -21,6 +21,8 @@ interface props {
   grayScore: number;
   setRedScore: (setRedScore) => void;
   setGrayScore: (setGrayScore) => void;
+  io: any;
+  session: string;
 }
 
 export const Cell: React.FC<props> = (props) => {
@@ -105,6 +107,7 @@ export const Cell: React.FC<props> = (props) => {
           : dup;
 
       //Set board state
+      props.io.emit("sendGameMove", { session: props.session, gameState: dup });
       props.setBoard([...dup]);
       //set precious click object
       props.sPC([]);
