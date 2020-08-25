@@ -4,33 +4,50 @@ import { Board } from "../components/board";
 import { WelcomeBox } from "../components/welcomeBox";
 import styles from "../styles/Home.module.css";
 import { url } from "../helpers/url";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { socketConnect } from "../helpers/sockets";
 import { useRouter } from "next/router";
 
-export default function Home() {
+export default function Home(props) {
   console.log("Home");
+  console.log(props.session);
+  const [session, setSessionToken] = useState(null);
+  const [option, setOption] = useState(1);
+  const [standBy, setStandBy] = useState("inPlay");
+  const [io, setIO] = useState(null);
 
   // Check Route to determine if there is a session ID submitted
-
-  const router = useRouter();
-  let sessionId = router.asPath;
-  sessionId = sessionId.replace("/", "");
-  sessionId = sessionId.length == 0 ? null : sessionId;
-
-  //Set states
-  const [session, setSessionToken] = useState(sessionId);
-  const [option, setOption] = useState(1);
-  const [standBy, setStandBy] = useState("activePlayer center");
-
+  let sessionId;
   const callback = (res) => {
-    console.log(res.data.session);
-
-    session == null ? setSessionToken(res.data.session) : null;
+    sessionId = res.data.session;
+    setSessionToken(sessionId);
+  };
+  const runSocket = () => {
+    console.log("runSocket Executed");
+    //io=socketConnect(a, b);
   };
 
+  useEffect(() => {
+    if (typeof props.sessionId != "undefined") {
+      console.log(io);
+      if (io == null) {
+        console.log("Running Socket Connect");
+        socketConnect(props.session, setStandBy, setIO);
+      } else {
+        console.log("Io Emit");
+        io.emit("secondPlayer", props.sessionId);
+      }
+      //io.emit("secondPlayer", "inPlay");
+    } else if (session == null) {
+      console.log("CallBackRun");
+      url("get", "/", null, callback);
+    }
+  });
+
+  console.log(session);
+  console.log(io);
   //Request inital session token
-  session == null ? url("get", "/", null, callback) : null;
+  //typeof sessionId == "undefined" ? url("get", "/", null, callback) : null;
 
   return (
     <div className={styles.container}>
@@ -40,9 +57,10 @@ export default function Home() {
         setStandBy={setStandBy}
         socket={socketConnect}
         session={session}
+        setIO={setIO}
       />
       <Header />
-      <Board session={session} standBy={standBy} />
+      <Board session={session} standBy={standBy} io={io} />
       <Footer />
     </div>
   );
