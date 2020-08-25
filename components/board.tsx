@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Row } from "./row";
 import { Loadboard } from "../helpers/loadboard";
+import { InputBox } from "./inputBox";
+import { ScoreBoardCell } from "./scoreBoardCell";
+import { InformationCell } from "./informationCell";
 
 interface boardProps {
   nValue: Number;
@@ -22,8 +25,8 @@ export const Board: React.FC<boardProps> = (boardProps) => {
 
   moves == false ? Loadboard(board, nValue, setBoard, setMoves) : null;
   // Board Values (Enum model) = {
-  //                  0 = white
-  //                  1 = black
+  //                  0 = white cell
+  //                  1 = black cell
   //                  2 = red piece on black cell
   //                  3 = white piece on black cell
   //                  Any negatvie multiple is a selected piece
@@ -48,41 +51,23 @@ export const Board: React.FC<boardProps> = (boardProps) => {
   return (
     <div>
       <div className={"top"}>
-        <div className={"inputBox"}>
-          <label htmlFor="nValue"> Select Rows : </label>
-          <input
-            type="number"
-            id="nValue"
-            value={nValue}
-            onChange={(e) => onChangeHandler(e)}
-          ></input>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <div className="activePlayer">
-            <div className="piece red"></div>
-            <h3>
-              Score: <br />
-              {redScore}
-            </h3>
-          </div>
+        <InputBox nValue={nValue} onChangeHandler={onChangeHandler} />
+        <div className="scoreBoardRow">
+          <ScoreBoardCell
+            scoreType={redScore}
+            cName={"activePlayer"}
+            typeCName={"piece red"}
+          />
 
-          <div className={boardProps.standBy}>
-            <div className={setPlayer()}></div>
-            <h3>Next Move</h3>
-          </div>
-
-          <div className="activePlayer">
-            <div className="piece gray"></div>
-            <h3>
-              Score: <br />
-              {grayScore}{" "}
-            </h3>
-          </div>
+          <InformationCell
+            gameStatus={boardProps.standBy}
+            setPlayer={setPlayer()}
+          />
+          <ScoreBoardCell
+            scoreType={grayScore}
+            cName={"activePlayer"}
+            typeCName={"piece gray"}
+          />
         </div>
       </div>
 
