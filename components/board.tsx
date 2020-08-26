@@ -14,13 +14,14 @@ interface boardProps {
   setBoard: (setBoard) => void;
   io: any;
   session: string;
+  active: number;
+  setActive: (setActive) => void;
 }
 
 export const Board: React.FC<boardProps> = (boardProps) => {
   const [nValue, setNValue] = useState(8);
   //const [board, setBoard] = useState([]);
   const [moves, setMoves] = useState(false);
-  const [active, setActive] = useState(2);
   const [previousCell, setPreviousCell] = useState({ i: 0, j: 0 });
   const [highLightCells, setHighLight] = useState([{ i: 0, j: 0 }]);
   const [redScore, setRedScore] = useState(0);
@@ -48,11 +49,15 @@ export const Board: React.FC<boardProps> = (boardProps) => {
     moves == false
       ? Loadboard(boardProps.board, nValue, boardProps.setBoard, setMoves)
       : null;
-    setActive(2);
+    boardProps.setActive(2);
   };
 
   const setPlayer = () => {
-    return active == 2 ? "piece red" : active == 3 ? "piece gray" : null;
+    return boardProps.active == 2
+      ? "piece red"
+      : boardProps.active == 3
+      ? "piece gray"
+      : null;
   };
 
   return (
@@ -86,8 +91,8 @@ export const Board: React.FC<boardProps> = (boardProps) => {
             n={nValue}
             setBoard={boardProps.setBoard}
             board={boardProps.board}
-            setActive={setActive}
-            active={active}
+            setActive={boardProps.setActive}
+            active={boardProps.active}
             pC={previousCell}
             sPC={setPreviousCell}
             hc={highLightCells}

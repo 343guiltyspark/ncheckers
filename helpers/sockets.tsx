@@ -4,7 +4,7 @@ const ENDPOINT = "http://localhost:8080";
 export const socketConnect = (data, setStandBy, setIO, setBoard) => {
   const io = socketIOClient(ENDPOINT);
 
-  console.log(io);
+  //console.log(io);
   io.on("connect", () => {
     console.log("Connected");
     io.emit("setSession", data);

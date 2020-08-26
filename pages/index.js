@@ -6,16 +6,15 @@ import styles from "../styles/Home.module.css";
 import { url } from "../helpers/url";
 import { useState, useEffect } from "react";
 import { socketConnect } from "../helpers/sockets";
-import { useRouter } from "next/router";
 
 export default function Home(props) {
-  console.log("Home");
-  console.log(props.session);
   const [session, setSessionToken] = useState(null);
+  const [moves, setMoves] = useState([0]);
   const [option, setOption] = useState(1);
   const [standBy, setStandBy] = useState("inPlay");
   const [io, setIO] = useState(null);
   const [board, setBoard] = useState([]);
+  const [active, setActive] = useState(2);
 
   // Check Route to determine if there is a session ID submitted
   let sessionId;
@@ -23,32 +22,28 @@ export default function Home(props) {
     sessionId = res.data.session;
     setSessionToken(sessionId);
   };
-  const runSocket = () => {
-    console.log("runSocket Executed");
-    //io=socketConnect(a, b);
-  };
 
   useEffect(() => {
+    //This effect runs if url cotains a /abcde route
+    //If io is not set, set it by running socketConnect
+    //If io is set then increase number of moves, setMoves state, setSessionToken,
+    //and then broadcast the "sessionId" thru the "secondPlayer" socket channel.
+
     if (typeof props.sessionId != "undefined") {
-      console.log(io);
       if (io == null) {
         console.log("Running Socket Connect");
         socketConnect(props.session, setStandBy, setIO, setBoard);
-      } else {
-        console.log("Io Emit");
+      } else if (moves == 0) {
+        let dupMoves = moves + 1;
+        setMoves(dupMoves);
+        setSessionToken(props.sessionId);
         io.emit("secondPlayer", props.sessionId);
       }
-      //io.emit("secondPlayer", "inPlay");
     } else if (session == null) {
-      console.log("CallBackRun");
+      //Request initial token for fist load if game doesn't have a session
       url("get", "/", null, callback);
     }
   });
-
-  console.log(session);
-  console.log(io);
-  //Request inital session token
-  //typeof sessionId == "undefined" ? url("get", "/", null, callback) : null;
 
   return (
     <div className={styles.container}>
@@ -68,6 +63,8 @@ export default function Home(props) {
         io={io}
         board={board}
         setBoard={setBoard}
+        active={active}
+        setActive={setActive}
       />
       <Footer />
     </div>
