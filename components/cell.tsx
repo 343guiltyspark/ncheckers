@@ -96,6 +96,8 @@ export const Cell: React.FC<props> = (props) => {
               props.j,
               props.setActive,
               props.active,
+              props.io,
+              props.session,
               prev,
               props.hc,
               props.sHC,
@@ -107,7 +109,9 @@ export const Cell: React.FC<props> = (props) => {
           : dup;
 
       //Set board state
+
       props.io.emit("sendGameMove", { session: props.session, gameState: dup });
+
       props.setBoard([...dup]);
       //set precious click object
       props.sPC([]);

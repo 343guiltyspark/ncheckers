@@ -32,7 +32,7 @@ export default function Home(props) {
     if (typeof props.sessionId != "undefined") {
       if (io == null) {
         console.log("Running Socket Connect");
-        socketConnect(props.session, setStandBy, setIO, setBoard);
+        socketConnect(props.session, setStandBy, setIO, setBoard, setActive);
       } else if (moves == 0) {
         let dupMoves = moves + 1;
         setMoves(dupMoves);
@@ -55,6 +55,7 @@ export default function Home(props) {
         session={session}
         setIO={setIO}
         setBoard={setBoard}
+        setActive={setActive}
       />
       <Header />
       <Board

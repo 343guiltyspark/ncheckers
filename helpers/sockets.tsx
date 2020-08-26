@@ -1,7 +1,7 @@
 import socketIOClient from "socket.io-client";
 const ENDPOINT = "http://localhost:8080";
 
-export const socketConnect = (data, setStandBy, setIO, setBoard) => {
+export const socketConnect = (data, setStandBy, setIO, setBoard, setActive) => {
   const io = socketIOClient(ENDPOINT);
 
   //console.log(io);
@@ -20,6 +20,10 @@ export const socketConnect = (data, setStandBy, setIO, setBoard) => {
   io.on("gameMove", (msg) => {
     console.log("gameMove", msg);
     setBoard(msg);
+  });
+  io.on("setActiveUpdate", (msg) => {
+    console.log("ActiveP", msg);
+    setActive(msg);
   });
 
   setIO(io);

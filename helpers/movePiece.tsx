@@ -6,6 +6,8 @@ export const MovePiece = (
   j: number,
   setActive: (setActive) => void,
   active: number,
+  io: any,
+  session: string,
   prev?: any,
   hc?: any,
   sHC?: (setHightLight) => void,
@@ -72,6 +74,10 @@ export const MovePiece = (
     //Change Player turn once a move has been completed.
     let aDup = active == 2 ? 3 : 2;
     setActive(aDup);
+    io.emit("setActivePlayer", {
+      session: session,
+      activePlayer: aDup,
+    });
   }
 
   return dup;
