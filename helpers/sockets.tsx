@@ -1,8 +1,7 @@
 import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://localhost:8080";
 
 export const socketConnect = (data, setStandBy, setIO, setBoard, setActive) => {
-  const io = socketIOClient(ENDPOINT);
+  const io = socketIOClient("http://192.168.0.140:8080");
 
   //console.log(io);
   io.on("connect", () => {
