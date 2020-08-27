@@ -109,8 +109,14 @@ export const Cell: React.FC<props> = (props) => {
           : dup;
 
       //Set board state
+      //Sync board state with socket if socket has been set.
 
-      props.io.emit("sendGameMove", { session: props.session, gameState: dup });
+      props.io != null
+        ? props.io.emit("sendGameMove", {
+            session: props.session,
+            gameState: dup,
+          })
+        : null;
 
       props.setBoard([...dup]);
       //set precious click object

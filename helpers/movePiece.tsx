@@ -74,10 +74,14 @@ export const MovePiece = (
     //Change Player turn once a move has been completed.
     let aDup = active == 2 ? 3 : 2;
     setActive(aDup);
-    io.emit("setActivePlayer", {
-      session: session,
-      activePlayer: aDup,
-    });
+
+    //Change active player cell thru IO.emit if IO has been state.
+    io != null
+      ? io.emit("setActivePlayer", {
+          session: session,
+          activePlayer: aDup,
+        })
+      : null;
   }
 
   return dup;
