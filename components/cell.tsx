@@ -23,6 +23,7 @@ interface props {
   setGrayScore: (setGrayScore) => void;
   io: any;
   session: string;
+  me: number;
 }
 
 export const Cell: React.FC<props> = (props) => {
@@ -51,10 +52,15 @@ export const Cell: React.FC<props> = (props) => {
 
   const ClickHandler = () => {
     let prev: any = { ...props.pc };
+    let newMe;
+    newMe = props.io != null ? props.me : props.active;
+
     if (
       //Enforce player turns and ensure click event only fires for valid Icons
-      Math.abs(props.board[props.i][props.j]) === props.active ||
-      props.board[props.i][props.j] == -1
+
+      (Math.abs(props.board[props.i][props.j]) === props.active &&
+        newMe == props.active) ||
+      (props.board[props.i][props.j] == -1 && newMe == props.active)
     ) {
       let dup = [...props.board];
 

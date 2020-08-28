@@ -15,6 +15,7 @@ export default function Home(props) {
   const [io, setIO] = useState(null);
   const [board, setBoard] = useState([]);
   const [active, setActive] = useState(2);
+  const [me, setMe] = useState(2); // Used to control player id when two or more devices are connected
 
   // Check Route to determine if there is a session ID submitted
   let sessionId;
@@ -32,6 +33,7 @@ export default function Home(props) {
     if (typeof props.sessionId != "undefined") {
       if (io == null) {
         console.log("Running Socket Connect");
+        setMe(3);
         socketConnect(props.session, setStandBy, setIO, setBoard, setActive);
       } else if (moves == 0) {
         let dupMoves = moves + 1;
@@ -66,6 +68,7 @@ export default function Home(props) {
         setBoard={setBoard}
         active={active}
         setActive={setActive}
+        me={me}
       />
       <Footer />
     </div>

@@ -21,6 +21,7 @@ interface props {
   setGrayScore: (setGrayScore) => void;
   io: any;
   session: string;
+  me: number;
 }
 
 export const Row: React.FC<props> = (props) => {
@@ -47,6 +48,7 @@ export const Row: React.FC<props> = (props) => {
           setGrayScore={props.setGrayScore}
           io={props.io}
           session={props.session}
+          me={props.me}
         />
       ))}
     </div>

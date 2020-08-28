@@ -16,6 +16,7 @@ interface boardProps {
   session: string;
   active: number;
   setActive: (setActive) => void;
+  me: number;
 }
 
 export const Board: React.FC<boardProps> = (boardProps) => {
@@ -103,6 +104,7 @@ export const Board: React.FC<boardProps> = (boardProps) => {
             setGrayScore={setGrayScore}
             io={boardProps.io}
             session={boardProps.session}
+            me={boardProps.me}
           />
         ))}
       </main>
