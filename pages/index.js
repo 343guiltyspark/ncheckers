@@ -36,7 +36,15 @@ export default function Home(props) {
       if (io == null) {
         console.log("Running Socket Connect");
         setMe(3);
-        socketConnect(props.session, setStandBy, setIO, setBoard, setActive);
+        socketConnect(
+          props.session,
+          setStandBy,
+          setIO,
+          setBoard,
+          setActive,
+          setRedScore,
+          setGrayScore
+        );
       } else if (moves == 0) {
         let dupMoves = moves + 1;
         setMoves(dupMoves);
@@ -60,6 +68,8 @@ export default function Home(props) {
         setIO={setIO}
         setBoard={setBoard}
         setActive={setActive}
+        setRedScore={setRedScore}
+        setGrayScore={setGrayScore}
       />
       <Header />
       <Board

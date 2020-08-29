@@ -54,11 +54,21 @@ export const MovePiece = (
       posJ = j - deltaJ;
       dup[posI][posJ] = 1;
 
-      //trackscore counter
-      Math.abs(dup[i][j]) == 2
-        ? setRedScore(redScore + 1)
-        : Math.abs(dup[i][j]) == 3
-        ? setGrayScore(grayScore + 1)
+      //trackscore counter and emit event for each additional score
+      Math.abs(dup[i][j]) == 2 ? setRedScore(redScore + 1) : null;
+      io != null && Math.abs(dup[i][j]) == 2
+        ? io.emit("redScoreUpdate", {
+            session: session,
+            redScore: redScore + 1,
+          })
+        : null;
+
+      Math.abs(dup[i][j]) == 3 ? setGrayScore(grayScore + 1) : null;
+      io != null && Math.abs(dup[i][j]) == 3
+        ? io.emit("grayScoreUpdate", {
+            session: session,
+            grayScore: grayScore + 1,
+          })
         : null;
     }
 

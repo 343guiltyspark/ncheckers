@@ -1,6 +1,14 @@
 import socketIOClient from "socket.io-client";
 
-export const socketConnect = (data, setStandBy, setIO, setBoard, setActive) => {
+export const socketConnect = (
+  data,
+  setStandBy,
+  setIO,
+  setBoard,
+  setActive,
+  setRedScore,
+  setGrayScore
+) => {
   const io = socketIOClient("http://192.168.0.140:8080");
 
   //console.log(io);
@@ -23,6 +31,14 @@ export const socketConnect = (data, setStandBy, setIO, setBoard, setActive) => {
   io.on("setActiveUpdate", (msg) => {
     console.log("ActiveP", msg);
     setActive(msg);
+  });
+  io.on("setRedScore", (msg) => {
+    console.log("New Red Score", msg);
+    setRedScore(msg);
+  });
+  io.on("setGrayScore", (msg) => {
+    console.log("New Gray Score", msg);
+    setGrayScore(msg);
   });
 
   setIO(io);
