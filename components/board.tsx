@@ -43,6 +43,15 @@ export const Board: React.FC<boardProps> = (boardProps) => {
   //                  -2 = selected red piece
   //                  -3 = selected gray piece
   //                         }
+
+  if (boardProps.io != null && boardProps.me == 2) {
+    var redBox = "You";
+    var grayBox = "Other Player";
+  } else if (boardProps.io != null && boardProps.me == 3) {
+    var redBox = "Other Player";
+    var grayBox = "You";
+  }
+
   const onChangeHandler = (e) => {
     setMoves(false);
 
@@ -72,6 +81,7 @@ export const Board: React.FC<boardProps> = (boardProps) => {
             scoreType={boardProps.redScore}
             cName={"activePlayer"}
             typeCName={"piece red"}
+            textBox={redBox}
           />
 
           <InformationCell
@@ -82,6 +92,7 @@ export const Board: React.FC<boardProps> = (boardProps) => {
             scoreType={boardProps.grayScore}
             cName={"activePlayer"}
             typeCName={"piece gray"}
+            textBox={grayBox}
           />
         </div>
       </div>
