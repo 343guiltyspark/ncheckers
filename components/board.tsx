@@ -17,6 +17,10 @@ interface boardProps {
   active: number;
   setActive: (setActive) => void;
   me: number;
+  redScore: number;
+  grayScore: number;
+  setRedScore: (setRedScore) => void;
+  setGrayScore: (setGrayScore) => void;
 }
 
 export const Board: React.FC<boardProps> = (boardProps) => {
@@ -25,8 +29,6 @@ export const Board: React.FC<boardProps> = (boardProps) => {
   const [moves, setMoves] = useState(false);
   const [previousCell, setPreviousCell] = useState({ i: 0, j: 0 });
   const [highLightCells, setHighLight] = useState([{ i: 0, j: 0 }]);
-  const [redScore, setRedScore] = useState(0);
-  const [grayScore, setGrayScore] = useState(0);
 
   moves == false
     ? Loadboard(boardProps.board, nValue, boardProps.setBoard, setMoves)
@@ -67,7 +69,7 @@ export const Board: React.FC<boardProps> = (boardProps) => {
         <InputBox nValue={nValue} onChangeHandler={onChangeHandler} />
         <div className="scoreBoardRow">
           <ScoreBoardCell
-            scoreType={redScore}
+            scoreType={boardProps.redScore}
             cName={"activePlayer"}
             typeCName={"piece red"}
           />
@@ -77,7 +79,7 @@ export const Board: React.FC<boardProps> = (boardProps) => {
             setPlayer={setPlayer()}
           />
           <ScoreBoardCell
-            scoreType={grayScore}
+            scoreType={boardProps.grayScore}
             cName={"activePlayer"}
             typeCName={"piece gray"}
           />
@@ -98,10 +100,10 @@ export const Board: React.FC<boardProps> = (boardProps) => {
             sPC={setPreviousCell}
             hc={highLightCells}
             sHC={setHighLight}
-            redScore={redScore}
-            setRedScore={setRedScore}
-            grayScore={grayScore}
-            setGrayScore={setGrayScore}
+            redScore={boardProps.redScore}
+            setRedScore={boardProps.setRedScore}
+            grayScore={boardProps.grayScore}
+            setGrayScore={boardProps.setGrayScore}
             io={boardProps.io}
             session={boardProps.session}
             me={boardProps.me}

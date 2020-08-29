@@ -16,6 +16,8 @@ export default function Home(props) {
   const [board, setBoard] = useState([]);
   const [active, setActive] = useState(2);
   const [me, setMe] = useState(2); // Used to control player id when two or more devices are connected
+  const [redScore, setRedScore] = useState(0);
+  const [grayScore, setGrayScore] = useState(0);
 
   // Check Route to determine if there is a session ID submitted
   let sessionId;
@@ -69,6 +71,10 @@ export default function Home(props) {
         active={active}
         setActive={setActive}
         me={me}
+        redScore={redScore}
+        grayScore={grayScore}
+        setRedScore={setRedScore}
+        setGrayScore={setGrayScore}
       />
       <Footer />
     </div>
