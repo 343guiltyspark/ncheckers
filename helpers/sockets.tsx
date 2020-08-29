@@ -9,7 +9,7 @@ export const socketConnect = (
   setRedScore,
   setGrayScore
 ) => {
-  const io = socketIOClient("http://192.168.0.140:8080");
+  const io = socketIOClient("http://checkerssocket.ernestomaldonado.guru/");
 
   //console.log(io);
   io.on("connect", () => {
