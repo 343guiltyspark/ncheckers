@@ -1,6 +1,5 @@
 import { Cell } from "./cell";
 import { markSelected } from "../helpers/markSelected";
-import { loadGetInitialProps } from "next/dist/next-server/lib/utils";
 
 interface props {
   n: number;
