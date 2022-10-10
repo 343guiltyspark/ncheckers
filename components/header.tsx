@@ -5,7 +5,7 @@ export const Header: React.FC = () => {
 return(
     <Head>
     <title>N-Checkers Demo </title>
-    <link rel="icon" href="     /favicon.ico" />
+    <link rel="icon" href="/favicon.ico" />
     </Head>
     )
 }

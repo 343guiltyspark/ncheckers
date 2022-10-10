@@ -2,6 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
+  background: linear-gradient(to bottom, #e3f4fe 0%, #78BFEB 50%);
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
@@ -178,7 +179,7 @@ a {
 .welcomeBox {
   opacity: 1;
   width: 25%;
-  height: 300px;
+  height: 100%;
   background-color: lightyellow !important;
 }
 
@@ -188,7 +189,7 @@ a {
   height: 100px;
   transition: height 3s ease;
   transition-timing-function: ease-in-out;
-  background-color: lightyellow !important;
+  background-color: #e3f4fe !important;
 }
 
 .gameSelectForm {
