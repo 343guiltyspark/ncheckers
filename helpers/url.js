@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 export const url = (method, endPoint, object, callback) => {
-  const baseUrl = "http://checkerssocket.ernestomaldonado.guru";
+  const baseUrl = "http://localhost:3000";
 
   const get = (url, params, callback) => {
     Axios.get(url, params)

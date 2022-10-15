@@ -9,7 +9,7 @@ export const socketConnect = (
   setRedScore,
   setGrayScore
 ) => {
-  const io = socketIOClient("https://checkerssocket.ernestomaldonado.guru/");
+  const io = socketIOClient("http://localhost:3000");
 
   //console.log(io);
   io.on("connect", () => {
