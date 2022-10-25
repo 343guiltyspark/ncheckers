@@ -9,7 +9,7 @@ export const socketConnect = (
   setRedScore,
   setGrayScore
 ) => {
-  const io = socketIOClient("http://localhost:3000");
+  const io = socketIOClient("http://localhost:3000/api/socket");
 
   //console.log(io);
   io.on("connect", () => {

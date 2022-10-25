@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { GameUrl } from "../components/gameUrl";
 import { url } from "../helpers/url";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Stack from 'react-bootstrap/Stack';
+import { Container } from "react-bootstrap";
+
+
 
 interface props {
   option: number;
@@ -25,17 +32,14 @@ interface props {
 export const WelcomeBox: React.FC<props> = (props) => {
   const [welcomBoxClass, setWBClass] = useState("welcomeBox");
   const [gameUrlClass, setGameUrlClass] = useState("gameUrlBarInit");
+  const [show, setShow] = useState(true);
 
-  const RadioButtonOnChange = (e) => {
-    props.setOption(e.target.value);
-  };
+  const handleClose = () => setShow(false);
+  //const handleShow = () => setShow(true);
 
-  const GameSelectHandler = (e) => {
-    e.preventDefault();
-    document.getElementById("gameSelect").remove();
 
-    if (e.target.gameType.value == 2) {
-      url("post", "/gameType", { session: props.session, type: 2 });
+  const gameSelectHandler = () => {
+      url("post", "/api/socket", { session: props.session, type: 2 });
       props.socket(
         props.session,
         props.setStandBy,
@@ -45,65 +49,39 @@ export const WelcomeBox: React.FC<props> = (props) => {
         props.setRedScore,
         props.setGrayScore
       );
-    } else if (e.target.gameType.value == 1) {
-      url("post", "/gameType", { session: props.session, type: 1 });
-    }
+      setShow(false)
 
-    setWBClass("welcomeBoxSelected");
-    setGameUrlClass("gameUrlBar");
+   // setWBClass("welcomeBoxSelected");
+   // setGameUrlClass("gameUrlBar");
   };
 
   return (
-    <div className={welcomBoxClass}>
-      <GameUrl gameUrlClass={gameUrlClass} session={props.session} />
+    <>
+      <Modal show={show} onHide={handleClose} backdrop="static">
+        <Modal.Header >
+          <Modal.Title>Welcome ! Select your game mode.</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Stack gap={3}>
 
-      <div>
-        <form
-          id="gameSelect"
-          className="gameSelectForm"
-          onSubmit={(e) => GameSelectHandler(e)}
-        >
-          <label
-            htmlFor="gameType"
-            style={{
-              paddingBottom: "1rem",
-            }}
-          >
-            {" "}
-            Welcome! Please choose your game type:
-          </label>
+            <div className="bg-light border"> 
+              <Button variant="primary" onClick={handleClose}>
+                Single Device 
+              </Button>
+              <br/>Two Human Players on the same device.
+            </div>
+      
+           {/* <div className="bg-light border"> 
+                <Button variant="primary" onClick={gameSelectHandler}>
+                  Multiple Devices
+                </Button>
+                <br/>Two Human Players on Different Devices. 
+                <br/>You will need to share the game url with your second player.  
+            </div> */}
 
-          <div>
-            <input
-              type="radio"
-              name="gameType"
-              value="1"
-              id="single"
-              checked={props.option == 1}
-              onChange={RadioButtonOnChange}
-            />
-            <label htmlFor="single">Single Device Game for two players</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              name="gameType"
-              value="2"
-              id="dual"
-              checked={props.option == 2}
-              onChange={RadioButtonOnChange}
-            />
-            <label htmlFor="dual">
-              Multi-device game for two players.
-              <br />
-              {"\t"} Players must share url links{" "}
-            </label>
-          </div>
-          <div className={"submitButton"}>
-            <input type="submit" value="Submit" />
-          </div>
-        </form>
-      </div>
-    </div>
+         </Stack>
+        </Modal.Body>
+      </Modal>
+    </>
   );
 };
